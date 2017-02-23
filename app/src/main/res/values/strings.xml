@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Message In A Bottle</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="memory">Memory</string>
+    <string name="send_msg">Send Msg</string>
+    <string name="setting">Setting</string>
 </resources>
