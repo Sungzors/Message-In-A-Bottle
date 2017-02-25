@@ -1,21 +1,27 @@
 package com.example.sungwon.messageinabottle;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainMenuFragment.OnFragmentInteractionListener{
     BottomNavigationView mBottomNav;
     TextView mTestText;
+    Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupView();
+        mFragment = MainMenuFragment.newInstance("create");
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mFragment).commit();
+
     }
 
     private void setupView() {
@@ -29,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_main_menu:
                         mBottomNav.setItemBackgroundResource(R.color.orange);
                         mTestText.setText("Main Menu Selected!!!");
+                        mFragment = MainMenuFragment.newInstance("Passing");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).commit();
                         break;
                     case R.id.action_memory:
                         mBottomNav.setItemBackgroundResource(R.color.gray);
@@ -46,5 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
