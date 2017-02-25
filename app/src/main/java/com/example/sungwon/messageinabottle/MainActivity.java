@@ -5,13 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView mBottomNav;
     TextView mTestText;
-    FrameLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private void setupView() {
         mBottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         mTestText = (TextView)findViewById(R.id.testText);
-        mContainer = (FrameLayout)findViewById(R.id.fragment_container);
         BottomNavigationViewHelper.disableShiftMode(mBottomNav);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
