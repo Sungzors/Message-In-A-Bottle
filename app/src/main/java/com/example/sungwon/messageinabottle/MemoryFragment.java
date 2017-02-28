@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MemoryFragment.OnFragmentInteractionListener} interface
+ * {@link OnMemoryFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MemoryFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -21,13 +21,11 @@ public class MemoryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnMemoryFragmentInteractionListener mListener;
 
     public MemoryFragment() {
         // Required empty public constructor
@@ -38,15 +36,13 @@ public class MemoryFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MemoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MemoryFragment newInstance(String param1, String param2) {
+    public static MemoryFragment newInstance(String param1) {
         MemoryFragment fragment = new MemoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,7 +52,6 @@ public class MemoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -70,18 +65,18 @@ public class MemoryFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onMemoryFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnMemoryFragmentInteractionListener) {
+            mListener = (OnMemoryFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnMemoryFragmentInteractionListener");
         }
     }
 
@@ -101,8 +96,8 @@ public class MemoryFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnMemoryFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onMemoryFragmentInteraction(Uri uri);
     }
 }

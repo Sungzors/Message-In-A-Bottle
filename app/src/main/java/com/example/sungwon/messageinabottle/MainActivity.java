@@ -9,10 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements MainMenuFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements MainMenuFragment.OnMMFragmentInteractionListener, MemoryFragment.OnMemoryFragmentInteractionListener {
     BottomNavigationView mBottomNav;
     TextView mTestText;
     Fragment mFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
                     case R.id.action_memory:
                         mBottomNav.setItemBackgroundResource(R.color.gray);
                         mTestText.setText("Memory Selected!!");
+                        mFragment = MemoryFragment.newInstance("Passing");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragment).commit();
                         break;
                     case R.id.action_send:
                         mBottomNav.setItemBackgroundResource(R.color.colorPrimary);
@@ -55,9 +59,12 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
             }
         });
     }
-
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onMMFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onMemoryFragmentInteraction(Uri uri) {
 
     }
 }
