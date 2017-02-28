@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sungwon.messageinabottle">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +29,7 @@
 
             </intent-filter>
         </activity>
+        <service android:name=".GeofenceTransitionsIntentService"/>
     </application>
 
 </manifest>
