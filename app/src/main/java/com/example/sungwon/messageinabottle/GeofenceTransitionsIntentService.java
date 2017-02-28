@@ -18,6 +18,10 @@ import com.google.android.gms.wearable.Wearable;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.example.sungwon.messageinabottle.Constants.CONNECTION_TIME_OUT_MS;
+import static com.example.sungwon.messageinabottle.Constants.GEOFENCE_DATA_ITEM_PATH;
+import static com.example.sungwon.messageinabottle.Constants.GEOFENCE_DATA_ITEM_URI;
+import static com.example.sungwon.messageinabottle.Constants.KEY_GEOFENCE_ID;
 import static com.google.android.gms.internal.zzt.TAG;
 
 /**
