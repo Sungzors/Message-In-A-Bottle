@@ -41,7 +41,8 @@
             android:layout_alignBottom="@+id/refreshButton"
             android:layout_toRightOf="@+id/refreshButton"
             android:layout_toEndOf="@+id/refreshButton"
-            android:id="@+id/createGeo" />
+            android:id="@+id/createGeo"
+            android:text="@string/create"/>
 
     </RelativeLayout>
 

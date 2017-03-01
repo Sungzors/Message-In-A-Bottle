@@ -65,6 +65,7 @@ public class SimpleGeofence {
                 .setTransitionTypes(mTransitionType)
                 .setCircularRegion(mLatitude, mLongitude, mRadius)
                 .setExpirationDuration(mExpirationDuration)
+                .setLoiteringDelay(5000)
                 .build();
     }
 

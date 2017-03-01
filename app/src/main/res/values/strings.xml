@@ -11,4 +11,5 @@
     <string name="entering_geofence">Entering the GeoFence zone</string>
     <string name="exiting_geofence">Exiting the GeoFence zone</string>
     <string name="refresh">Refresh</string>
+    <string name="create">Create</string>
 </resources>
