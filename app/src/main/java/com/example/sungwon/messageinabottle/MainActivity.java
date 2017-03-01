@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
         mGoogleApiClient.disconnect();
         super.onStop();
     }
-
+    //sets up Google API Client for Location service
     private void setupGoogleAPIClient() {
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
                     .build();
         }
     }
-
+    //sets up views
     private void setupView() {
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mTestText = (TextView) findViewById(R.id.testText);
@@ -102,8 +102,9 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
     }
 
     @Override
-    public void onMMFragmentInteraction(Uri uri) {
-
+    public void onMMFragmentInteraction(Location loc) {
+        MainMenuFragment mmfrag = (MainMenuFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        mmfrag.setLocation(loc);
     }
 
     @Override
@@ -113,6 +114,10 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        checkLocation();
+    }
+
+    public void checkLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -120,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
         if (mLastLocation != null){
             mTestText.setText("Current location: " + String.valueOf(mLastLocation.getLatitude()) + ", " + String.valueOf(mLastLocation.getLongitude()));
         }
+        onMMFragmentInteraction(mLastLocation);
     }
 
     @Override

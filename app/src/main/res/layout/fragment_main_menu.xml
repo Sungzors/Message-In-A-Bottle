@@ -5,15 +5,34 @@
     tools:context="com.example.sungwon.messageinabottle.MainMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Fragment Success!"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="left|center"
-        android:text="Frame test"/>
+        android:paddingTop="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Fragment Success!"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="Frame test"
+            android:id="@+id/frametest"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frametest"
+            android:paddingTop="50dp"
+            android:id="@+id/locationreceived"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationreceived"
+            android:id="@+id/refreshButton"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

@@ -1,12 +1,15 @@
 package com.example.sungwon.messageinabottle;
 
 import android.content.Context;
-import android.net.Uri;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -23,6 +26,10 @@ public class MainMenuFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
+    private Location mLocation;
+
+    TextView mLocRec;
+    Button mRefresh;
 
     private OnMMFragmentInteractionListener mListener;
 
@@ -59,14 +66,25 @@ public class MainMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_menu, container, false);
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onMMFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mLocRec = (TextView)view.findViewById(R.id.locationreceived);
+        mRefresh = (Button)view.findViewById(R.id.refreshButton);
+
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).checkLocation();
+                mLocRec.setText(String.valueOf(mLocation.getAltitude()));
+            }
+        });
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -75,7 +93,7 @@ public class MainMenuFragment extends Fragment {
             mListener = (OnMMFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnMemoryFragmentInteractionListener");
+                    + " must implement OnMMFragmentInteractionListener");
         }
     }
 
@@ -85,6 +103,9 @@ public class MainMenuFragment extends Fragment {
         mListener = null;
     }
 
+    public void setLocation(Location loc){
+        mLocation = loc;
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -97,6 +118,6 @@ public class MainMenuFragment extends Fragment {
      */
     public interface OnMMFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onMMFragmentInteraction(Uri uri);
+        void onMMFragmentInteraction(Location loc);
     }
 }
