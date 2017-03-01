@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
 
     List<Geofence> mGeofenceList;
     SimpleGeofenceStore mGeofenceStorage;
+    SimpleGeofence mGeofence;
 
 
     @Override
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
     @Override
     public void onMMFragmentInteraction(Location loc) {
         MainMenuFragment mmfrag = (MainMenuFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        mmfrag.setLocation(loc);
+        mmfrag.setLocation(loc, mGeofenceList.size());
     }
 
     @Override
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
     public void onConnected(@Nullable Bundle bundle) {
         checkLocation();
     }
-
+    //communication with fragment as well as used to refreshing location
     public void checkLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -126,6 +128,16 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
             mTestText.setText("Current location: " + String.valueOf(mLastLocation.getLatitude()) + ", " + String.valueOf(mLastLocation.getLongitude()));
         }
         onMMFragmentInteraction(mLastLocation);
+    }
+    //insert geofence
+    public void insertGeofence(SimpleGeofence geofence){
+        //null check
+        if(geofence == null){
+            Toast.makeText(this, "Geofence has not been registered properly", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mGeofenceStorage.setGeofence(geofence.getId(), geofence);
+        mGeofenceList.add(geofence.toGeofence());
     }
 
     @Override

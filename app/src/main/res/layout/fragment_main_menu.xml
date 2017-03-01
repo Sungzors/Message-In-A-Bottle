@@ -31,7 +31,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/locationreceived"
-            android:id="@+id/refreshButton"/>
+            android:id="@+id/refreshButton"
+            android:text="@string/refresh"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/refreshButton"
+            android:layout_alignBottom="@+id/refreshButton"
+            android:layout_toRightOf="@+id/refreshButton"
+            android:layout_toEndOf="@+id/refreshButton"
+            android:id="@+id/createGeo" />
 
     </RelativeLayout>
 

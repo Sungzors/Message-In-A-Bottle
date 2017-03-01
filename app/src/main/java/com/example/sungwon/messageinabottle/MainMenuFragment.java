@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.location.Geofence;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +21,7 @@ import android.widget.TextView;
  * Use the {@link MainMenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainMenuFragment extends Fragment {
+public class MainMenuFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,9 +29,12 @@ public class MainMenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private Location mLocation;
+    private int mID;
 
     TextView mLocRec;
     Button mRefresh;
+    Button mCreateGeo;
+    SimpleGeofence mGeofence;
 
     private OnMMFragmentInteractionListener mListener;
 
@@ -74,14 +79,9 @@ public class MainMenuFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mLocRec = (TextView)view.findViewById(R.id.locationreceived);
         mRefresh = (Button)view.findViewById(R.id.refreshButton);
-
-        mRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).checkLocation();
-                mLocRec.setText(String.valueOf(mLocation.getAltitude()));
-            }
-        });
+        mCreateGeo = (Button)view.findViewById(R.id.createGeo);
+        mRefresh.setOnClickListener(this);
+        mCreateGeo.setOnClickListener(this);
     }
 
 
@@ -103,9 +103,34 @@ public class MainMenuFragment extends Fragment {
         mListener = null;
     }
 
-    public void setLocation(Location loc){
+    public void setLocation(Location loc, int i){
         mLocation = loc;
+        mID = i;
     }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.refreshButton:
+                ((MainActivity)getActivity()).checkLocation();
+                mLocRec.setText(String.valueOf("Altitude: " + mLocation.getAltitude()));
+                break;
+            case R.id.createGeo:
+                MainActivity activity = ((MainActivity)getActivity());
+                activity.checkLocation();
+                mGeofence = new SimpleGeofence(
+                        String.valueOf(mID),
+                        mLocation.getLatitude(),
+                        mLocation.getLongitude(),
+                        500.0f,
+                        -1,
+                        Geofence.GEOFENCE_TRANSITION_DWELL
+                );
+                activity.insertGeofence(mGeofence);
+                break;
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
